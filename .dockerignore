@@ -1,1 +1,5 @@
 README.md
+etc/logging.conf.sample
+etc/keystone.conf.sample
+etc/default_catalog.templates
+etc/policy.json
