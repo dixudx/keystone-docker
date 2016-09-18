@@ -14,13 +14,13 @@ service discovery, and distributed multi-tenant authorization by implementing
 
 # What can this docker image do ?
 
-* Running Keystone with http (default) or
-    https (by passing `-e TLS_ENABLED=true`,
-    see more in [Environment Variables Explanations](./#environment-variables-explanations)) enabled;
-* Uses the Apache Web Server with mod_wsgi to serve Identity service
+* Running Keystone with **http** (default) or
+    **https** (by passing `-e TLS_ENABLED=true`,
+    see more in [Environment Variables Explanations](https://github.com/dixudx/keystone-docker#environment-variables-explanations)) enabled;
+* Uses the **Apache Web Server** with `mod_wsgi` to serve Identity service
     requests on port `5000` and `35357`;
 * Supports remote mysql database;
-* Utilizes Memcached to store tokens, reducing the burden of MySQL database;
+* Utilizes **Memcached** to store tokens, reducing the burden of MySQL database;
 * Customizes/Builds your own Keystone docker image by editing the value
     of `KEYSTONE_VERSION` in `Dockerfile`;
 
