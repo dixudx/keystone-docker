@@ -54,7 +54,7 @@ service discovery, and distributed multi-tenant authorization by implementing
 Just run
 
 ```
-$ docker run -d  -p 5000:5000 -p 35357:35357 --name my_keystone stephenhsu/keystone
+$ docker run -d -p 5000:5000 -p 35357:35357 --name my_keystone stephenhsu/keystone
 ```
 
 Now you can access <http://localhost:5000> and  <http://localhost:35357>.
@@ -94,14 +94,14 @@ from other servers after sourcing it.*
 ## Example 1: Running with TLS enabled
 
 ```sh
-$ docker run -d  -p 5000:5000 -p 35357:35357 -e TLS_ENABLED=true \
+$ docker run -d -p 5000:5000 -p 35357:35357 -e TLS_ENABLED=true \
     --name my_keystone_tls stephenhsu/keystone
 ```
 
 ## Example 2: Running with remote MySQL database
 
 ```sh
-$ docker run -d  -p 5000:5000 -p 35357:35357 -e KEYSTONE_DB_HOST=192.168.100.202 \
+$ docker run -d -p 5000:5000 -p 35357:35357 -e KEYSTONE_DB_HOST=192.168.100.202 \
     -e KEYSTONE_DB_ROOT_PASSWD_IF_REMOTED=your_password \
     --name my_keystone_db stephenhsu/keystone
 ```
@@ -110,7 +110,7 @@ $ docker run -d  -p 5000:5000 -p 35357:35357 -e KEYSTONE_DB_HOST=192.168.100.202
 
 ```sh
 $ mkdir -p ./apache/
-$ docker run -d  -p 5000:5000 -p 35357:35357 -v `pwd`/apache/:/etc/apache2 \
+$ docker run -d -p 5000:5000 -p 35357:35357 -v `pwd`/apache/:/etc/apache2 \
     --name my_keystone_ca stephenhsu/keystone
 ```
 

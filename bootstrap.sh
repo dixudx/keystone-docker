@@ -90,7 +90,7 @@ sed -i.bak '/<VirtualHost/a \
     SSLEngine on \
     SSLCertificateFile /etc/apache2/ssl/apache.crt \
     SSLCertificateKeyFile /etc/apache2/ssl/apache.key \
-    ' keystone.wsgi.conf
+    ' /etc/apache2/sites-available/keystone.conf
 fi
 
 # ensite keystone and start apache2
