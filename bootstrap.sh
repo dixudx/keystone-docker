@@ -54,9 +54,6 @@ sed -i.bak "s/KEYSTONE_DB_HOST/$KEYSTONE_DB_HOST/g" /etc/keystone/keystone.conf
 # Populate keystone database
 su -s /bin/sh -c 'keystone-manage db_sync' keystone
 
-# Start memcached service
-/usr/bin/memcached -u root &
-
 # Bootstrap keystone
 keystone-manage bootstrap --bootstrap-username admin \
 		--bootstrap-password $KEYSTONE_ADMIN_PASSWORD \

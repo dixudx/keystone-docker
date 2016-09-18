@@ -2,7 +2,7 @@ FROM python:2.7.12
 MAINTAINER = Di Xu <stephenhsu90@gmail.com>
 
 EXPOSE 5000 35357
-ENV KEYSTONE_VERSION 10.0.0.0b1
+ENV KEYSTONE_VERSION 9.1.0
 ENV KEYSTONE_ADMIN_PASSWORD passw0rd
 ENV KEYSTONE_DB_ROOT_PASSWD passw0rd
 ENV KEYSTONE_DB_PASSWD passw0rd
@@ -10,9 +10,8 @@ ENV KEYSTONE_DB_PASSWD passw0rd
 LABEL version="$KEYSTONE_VERSION"
 LABEL description="Openstack Keystone Docker Image Supporting HTTP/HTTPS"
 
-RUN set -x \
-    && apt-get -y update \
-    && apt-get install -y apache2 libapache2-mod-wsgi git memcached \
+RUN apt-get -y update \
+    && apt-get install -y apache2 libapache2-mod-wsgi git \
         libffi-dev python-dev libssl-dev mysql-client \
     && apt-get -y clean
 
@@ -27,7 +26,7 @@ WORKDIR /keystone
 RUN pip install -r requirements.txt \
     && PBR_VERSION=${KEYSTONE_VERSION}  python setup.py install
 
-RUN pip install -U python-openstackclient PyMySql python-memcached
+RUN pip install -U python-openstackclient PyMySql
 RUN mkdir /etc/keystone
 RUN cp -r ./etc/* /etc/keystone/
 
