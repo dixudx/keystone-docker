@@ -51,6 +51,9 @@ mysql -uroot -p$KEYSTONE_DB_ROOT_PASSWD -h $KEYSTONE_DB_HOST < /keystone.sql
 sed -i.bak "s/KEYSTONE_DB_PASSWORD/$KEYSTONE_DB_PASSWD/g" /etc/keystone/keystone.conf
 sed -i.bak "s/KEYSTONE_DB_HOST/$KEYSTONE_DB_HOST/g" /etc/keystone/keystone.conf
 
+# Start memcached
+/usr/bin/memcached -u root & >/dev/null || true
+
 # Populate keystone database
 su -s /bin/sh -c 'keystone-manage db_sync' keystone
 

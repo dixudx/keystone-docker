@@ -20,6 +20,7 @@ service discovery, and distributed multi-tenant authorization by implementing
 * Uses the Apache Web Server with mod_wsgi to serve Identity service
     requests on port `5000` and `35357`;
 * Supports remote mysql database;
+* Utilizes Memcached to store tokens, reducing the burden of MySQL database;
 * Customizes/Builds your own Keystone docker image by editing the value
     of `KEYSTONE_VERSION` in `Dockerfile`;
 
