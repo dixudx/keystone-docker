@@ -3,11 +3,12 @@
 TLS_ENABLED=${TLS_ENABLED:-false}
 if $TLS_ENABLED; then
     HTTP="https"
+    CN=${CN:-$HOSTNAME}
     # generate pem and crt files
     mkdir -p /etc/apache2/ssl
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt \
-        -subj "/C=$CONUTRY/ST=$STATE/L=$LOCALITY/O=$ORG/OU=$ORG_UNIT/CN=$HOSTNAME"
+        -subj "/C=$CONUTRY/ST=$STATE/L=$LOCALITY/O=$ORG/OU=$ORG_UNIT/CN=$CN"
 else
     HTTP="http"
 fi

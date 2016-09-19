@@ -91,11 +91,30 @@ from other servers after sourcing it.*
 | KEYSTONE_DB_HOST                   |               | True                                                    | MySQL remote database host; Combined with KEYSTONE_DB_ROOT_PASSWD_IF_REMOTED                     |
 | KEYSTONE_DB_ROOT_PASSWD_IF_REMOTED |               | True                                                    | MySQL remote database root user password; Combined with KEYSTONE_DB_HOST                         |
 
+## CSR (Certificate Signing Request) Environment Variables
+
+If you've enabled `TLS_ENABLED` (with `-e TLS_ENABLED=true`), below environment
+variables have to be noticed. You can just ignore them if you
+don't want to make any further customizations.
+
+| Environment Name | Default Value | Meaning             | Example         |
+|------------------|---------------|---------------------|-----------------|
+| CONUTRY          | NULL          | Country             | GB              |
+| STATE            | NULL          | State               | London          |
+| LOCALITY         | NULL          | Location            | London          |
+| ORG              | NULL          | Organization        | Global Security |
+| ORG_UNIT         | NULL          | Organizational Unit | IT Department   |
+| CN               | The Hostname  | Common Name         | example.com     |
+
+**Note**: *Be aware of `CN` (the default value is `$hostname`). You'd better
+not change it to other value.*
+
+
 ## Example 1: Running with TLS enabled
 
 ```sh
 $ docker run -d -p 5000:5000 -p 35357:35357 -e TLS_ENABLED=true \
-    --name my_keystone_tls stephenhsu/keystone
+    -h mykeystone.com --name my_keystone_tls stephenhsu/keystone
 ```
 
 ## Example 2: Running with remote MySQL database
@@ -103,7 +122,7 @@ $ docker run -d -p 5000:5000 -p 35357:35357 -e TLS_ENABLED=true \
 ```sh
 $ docker run -d -p 5000:5000 -p 35357:35357 -e KEYSTONE_DB_HOST=192.168.100.202 \
     -e KEYSTONE_DB_ROOT_PASSWD_IF_REMOTED=your_password \
-    --name my_keystone_db stephenhsu/keystone
+    -h mykeystone.com --name my_keystone_db stephenhsu/keystone
 ```
 
 ## Example 3: Accessing the Apache Certificate File
@@ -111,12 +130,17 @@ $ docker run -d -p 5000:5000 -p 35357:35357 -e KEYSTONE_DB_HOST=192.168.100.202 
 ```sh
 $ mkdir -p ./apache/
 $ docker run -d -p 5000:5000 -p 35357:35357 -v `pwd`/apache/:/etc/apache2 \
-    --name my_keystone_ca stephenhsu/keystone
+    -h mykeystone.com --name my_keystone_ca stephenhsu/keystone
 ```
 
-You can copy `/root/openrc` in your container to other server hosts,
-and replace `OS_CACERT` to this `./apache/ssl/apache.crt`. So that you access
-the keystone services without ssh into the container.
+You can copy `/root/openrc` in your container to your host server,
+and replace `OS_CACERT` to this `$pwd/apache/ssl/apache.crt`
+(replace `$pwd` with your real directory path).
+So that you access the keystone services using openstack python client
+( `pip install python-openstackclient` ) from outer of the the container.
+
+**Note**: *On your host server,
+you may also need to add `mykeystone.com` to `/etc/hosts`.*
 
 
 # Reference
