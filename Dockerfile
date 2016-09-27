@@ -12,7 +12,7 @@ LABEL description="Openstack Keystone Docker Image Supporting HTTP/HTTPS"
 
 RUN apt-get -y update \
     && apt-get install -y apache2 libapache2-mod-wsgi git memcached\
-        libffi-dev python-dev libssl-dev mysql-client \
+        libffi-dev python-dev libssl-dev mysql-client libldap2-dev libsasl2-dev\
     && apt-get -y clean
 
 RUN export DEBIAN_FRONTEND="noninteractive" \
@@ -26,7 +26,8 @@ WORKDIR /keystone
 RUN pip install -r requirements.txt \
     && PBR_VERSION=${KEYSTONE_VERSION}  python setup.py install
 
-RUN pip install python-openstackclient PyMySql python-memcached
+RUN pip install python-openstackclient PyMySql python-memcached \
+    python-ldap ldappool
 RUN mkdir /etc/keystone
 RUN cp -r ./etc/* /etc/keystone/
 
