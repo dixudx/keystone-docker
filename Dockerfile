@@ -23,10 +23,11 @@ RUN export DEBIAN_FRONTEND="noninteractive" \
 RUN git clone -b ${KEYSTONE_VERSION} https://github.com/openstack/keystone.git
 
 WORKDIR /keystone
+RUN sed -i.bak "s|keystonemiddleware!=4.1.0,>=4.0.0|keystonemiddleware!=4.1.0,>=4.0.0,<=4.9.0|" requirements.txt
 RUN pip install -r requirements.txt \
-    && PBR_VERSION=${KEYSTONE_VERSION}  python setup.py install
+    && PBR_VERSION=${KEYSTONE_VERSION} python setup.py install
 
-RUN pip install python-openstackclient PyMySql python-memcached \
+RUN pip install "osc-lib<=1.1.0" "python-openstackclient<=3.3.0" PyMySql python-memcached \
     python-ldap ldappool
 RUN mkdir /etc/keystone
 RUN cp -r ./etc/* /etc/keystone/

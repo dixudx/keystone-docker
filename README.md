@@ -5,7 +5,7 @@
 [![Docker Hub](http://img.shields.io/docker/pulls/stephenhsu/keystone.svg)](https://hub.docker.com/r/stephenhsu/keystone/)
 
 This repo is used to host a bunldle to create a docker container (based on
-Python 2.7.12) running Keystone.
+`Python 2.7.12`) running Keystone.
 
 Keystone is an OpenStack service that provides API client authentication,
 service discovery, and distributed multi-tenant authorization by implementing
@@ -46,6 +46,8 @@ service discovery, and distributed multi-tenant authorization by implementing
     $ docker build -t keystone:your_version ./
     ```
 
+    **WARNING: Pay attention to the dependencies. You may need to specify
+    dependency versions explicitly.**
 
 # How to run the container
 
