@@ -135,6 +135,17 @@ $ docker run -d -p 5000:5000 -p 35357:35357 -v `pwd`/apache/:/etc/apache2 \
     -h mykeystone.com --name my_keystone_ca stephenhsu/keystone
 ```
 
+## Example 4: Customize your Keystone configuration
+
+```sh
+$ git clone https://github.com/dixudx/keystone-docker.git
+$ cd keystone-docker
+# then modify all related configurations in folder ./etc
+# especially ./etc/keystone.conf
+$ docker run -d -p 5000:5000 -p 35357:35357 -v `pwd`/etc/:/etc/keystone/ \
+    -h mykeystone.com --name my_keystone_ca stephenhsu/keystone
+```
+
 You can copy `/root/openrc` in your container to your host server,
 and replace `OS_CACERT` to this `$pwd/apache/ssl/apache.crt`
 (replace `$pwd` with your real directory path).

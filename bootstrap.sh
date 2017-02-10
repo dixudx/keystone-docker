@@ -49,8 +49,8 @@ sed -i 's|KEYSTONE_DB_PASSWD|'"$KEYSTONE_DB_PASSWD"'|g' /keystone.sql
 mysql -uroot -p$KEYSTONE_DB_ROOT_PASSWD -h $KEYSTONE_DB_HOST < /keystone.sql
 
 # Update keystone.conf
-sed -i.bak "s/KEYSTONE_DB_PASSWORD/$KEYSTONE_DB_PASSWD/g" /etc/keystone/keystone.conf
-sed -i.bak "s/KEYSTONE_DB_HOST/$KEYSTONE_DB_HOST/g" /etc/keystone/keystone.conf
+sed -i "s/KEYSTONE_DB_PASSWORD/$KEYSTONE_DB_PASSWD/g" /etc/keystone/keystone.conf
+sed -i "s/KEYSTONE_DB_HOST/$KEYSTONE_DB_HOST/g" /etc/keystone/keystone.conf
 
 # Start memcached
 /usr/bin/memcached -u root & >/dev/null || true
@@ -87,7 +87,7 @@ echo "ServerName $HOSTNAME" >> /etc/apache2/apache2.conf
 if $TLS_ENABLED; then
 echo "export OS_CACERT=/etc/apache2/ssl/apache.crt" >> /root/openrc
 a2enmod ssl
-sed -i.bak '/<VirtualHost/a \
+sed -i '/<VirtualHost/a \
     SSLEngine on \
     SSLCertificateFile /etc/apache2/ssl/apache.crt \
     SSLCertificateKeyFile /etc/apache2/ssl/apache.key \

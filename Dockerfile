@@ -35,7 +35,7 @@ RUN cp -r ./etc/* /etc/keystone/
 COPY ./etc/keystone.conf /etc/keystone/keystone.conf
 COPY keystone.sql /keystone.sql
 COPY bootstrap.sh /bootstrap.sh
-COPY ./etc/keystone.wsgi.conf /etc/apache2/sites-available/keystone.conf
+COPY ./keystone.wsgi.conf /etc/apache2/sites-available/keystone.conf
 
 WORKDIR /root
 CMD sh -x /bootstrap.sh
