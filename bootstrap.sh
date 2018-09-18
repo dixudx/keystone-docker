@@ -17,6 +17,14 @@ if [ -z $KEYSTONE_DB_HOST ]; then
     KEYSTONE_DB_HOST=localhost
     # start mysql locally
     service mysql restart
+
+    #Docker OverlayFS compatibility: implements subset POSIX standards
+    #https://docs.docker.com/storage/storagedriver/overlayfs-driver/
+    #ALT: attach /var/lib/mysql as a volume to avoid timeout
+    if [ $? ] ; then
+        find /var/lib/mysql -type f -exec touch {} \;
+        service mysql restart
+    fi
 else
     if [ -z $KEYSTONE_DB_ROOT_PASSWD_IF_REMOTED ]; then
         echo "Your'are using Remote MySQL Database; "
